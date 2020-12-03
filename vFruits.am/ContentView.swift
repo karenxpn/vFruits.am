@@ -8,9 +8,43 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        
+        NavigationView {
+            
+            TabView {
+                HomeView()
+                    .tabItem {
+                        Image(systemName: "house")
+                        Text("Home")
+                        
+                    }
+                
+                Text( "Cart" )
+                    .tabItem {
+                        Image(systemName: "cart")
+                        Text("Cart")
+                        
+                    }
+                
+                Text( "Favourites" )
+                    .tabItem {
+                        Image(systemName: "heart")
+                        Text("Favourites")
+                        
+                    }
+                
+                Text( "My Profile" )
+                    .tabItem {
+                        Image(systemName: "person")
+                        Text("My Profile")
+                        
+                    }
+            }.accentColor(Color(red: 255/255, green: 213/255, blue: 59/255))
+            .navigationBarTitle(Text( "vFruits" ), displayMode: .inline)
+        }
     }
 }
 

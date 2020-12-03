@@ -6,3 +6,8 @@
 //
 
 import Foundation
+struct ProductListModel: Codable {
+    var status: String
+    var results: Int
+    var data: [ProductModel]
+}

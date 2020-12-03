@@ -6,3 +6,6 @@
 //
 
 import Foundation
+struct CategoryDataModel: Codable {
+    var data: [CategoryModel]
+}

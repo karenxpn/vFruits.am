@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct SelectedProduct: View {
+    
+    let product: ProductViewModel
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text(product.name)
+            .navigationBarTitle(Text( product.name), displayMode: .inline)
     }
 }
 
-struct SelectedProduct_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectedProduct()
-    }
-}
+//struct SelectedProduct_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectedProduct()
+//    }
+//}

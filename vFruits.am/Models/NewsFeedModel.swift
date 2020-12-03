@@ -6,3 +6,7 @@
 //
 
 import Foundation
+struct NewsFeedModel: Codable, Identifiable {
+    var id: String
+    var url: String
+}

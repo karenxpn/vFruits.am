@@ -8,8 +8,28 @@
 import SwiftUI
 
 struct CategoryList: View {
+    @EnvironmentObject var homeVM: HomeViewModel
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView( .horizontal, showsIndicators: false ) {
+            HStack {
+                ForEach( self.homeVM.categoryList, id: \.id ) { category in
+                    
+                    VStack {
+                        Text( category.name )
+                            .padding(.horizontal)
+                        
+                        Rectangle()
+                            .fill(self.homeVM.currentCategoryTabID == category.id ? Color.yellow : Color.black)
+                            .frame(height: 1)
+                        
+                    }.onTapGesture {
+                        self.homeVM.currentCategoryTabID = category.id
+                        self.homeVM.getProductsByCategory()
+                    }
+                }
+            }.padding(.horizontal)
+        }
     }
 }
 
