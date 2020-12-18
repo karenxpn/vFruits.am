@@ -7,9 +7,26 @@
 
 import Foundation
 import Alamofire
+import Combine
+
+protocol HomeServiceProtocol {
+    func fetchCategories() -> AnyPublisher<[CategoryModel], AFError>
+    func fetchProductsByCategoryID( id: String ) -> AnyPublisher<ProductListModel, AFError>
+}
 
 class HomeService {
+    static let shared: HomeServiceProtocol = HomeService()
+        
+    private init() {}
+}
+
+
+extension HomeService: HomeServiceProtocol {
+    
     func fetchNewsFeed( token: String, completion: @escaping( [NewsFeedModel]? ) -> ()) {
+        
+        // TODO
+        
         let arr = [NewsFeedModel(id: "1", url: "news"),
                    NewsFeedModel(id: "2", url: "news"),
                    NewsFeedModel(id: "3", url: "news"),
@@ -21,37 +38,31 @@ class HomeService {
         }
     }
     
-    func fetchCategories( completion: @escaping ( CategoryDataModel? ) -> ()) {
-        guard let url = URL(string: "\(Credentials().BASE_URL)/categories" ) else {
-            DispatchQueue.main.async {
-                completion( nil )
-            }
-            return
-        }
+    
+    func fetchCategories() -> AnyPublisher<[CategoryModel], AFError> {
         
-        AF.request(url,
-                   method: .get).responseDecodable(of: CategoryDataModel.self) { (response) in
-                        DispatchQueue.main.async {
-                            completion( response.value )
-                        }
-                   }
+        let url = "\(Credentials().BASE_URL)/categories"
+        
+        return AF.request(url,
+                          method: .get)
+            .publishDecodable(type: CategoryDataModel.self)
+            .value()
+            .map{ $0.data }
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
     
-    func fetchProductsByCategoryID( id: String, completion: @escaping( ProductListModel? ) -> ()) {
+    func fetchProductsByCategoryID( id: String ) -> AnyPublisher<ProductListModel, AFError> {
         
-        guard let url = URL(string: "\(Credentials().BASE_URL)/products?category=\(id)" ) else {
-            DispatchQueue.main.async {
-                completion( nil )
-            }
-            return
-        }
         
-        AF.request(url,
-                   method: .get).responseDecodable(of: ProductListModel.self) { (response) in
-                        DispatchQueue.main.async {
-                            completion( response.value )
-                        }
-                   }
+        let url = "\(Credentials().BASE_URL)/products?category=\(id)"
 
+        return AF.request(url,
+                   method: .get)
+            .publishDecodable(type: ProductListModel.self)
+            .value()
+            .receive(on: DispatchQueue.main)
+            .eraseToAnyPublisher()
     }
+    
 }

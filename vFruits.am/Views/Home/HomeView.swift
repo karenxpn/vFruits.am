@@ -16,20 +16,31 @@ struct HomeView: View {
     
     // Create @Published variable in view model currentCategoryTab and its child grid of products
     
+    init() {
+        UIScrollView.appearance().bounces = false
+    }
+    
     var body: some View {
-        VStack {
-            NewsFeed().environmentObject( self.homeVM )
-            
-            Group {
-                SearchBar().environmentObject( self.homeVM )
+        
+        if self.homeVM.loading {
+            Loading()
+        } else {
+            ScrollView( .vertical ) {
+                NewsFeed().environmentObject( self.homeVM )
                 
-                CategoryList().environmentObject(self.homeVM)
+                Group {
+                    SearchBar().environmentObject( self.homeVM )
+                    
+                    CategoryList().environmentObject(self.homeVM)
 
-                ProductsGrid().environmentObject(self.homeVM)
-            }.offset(y: -25)
+                    ProductsGrid().environmentObject(self.homeVM)
+                }.offset(y: -25)
+                
+                Spacer()
+            }
             
-            Spacer()
         }
+
     }
 }
 

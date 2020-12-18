@@ -15,13 +15,13 @@ struct CategoryList: View {
             HStack {
                 ForEach( self.homeVM.categoryList, id: \.id ) { category in
                     
-                    VStack {
+                    VStack( spacing: 3) {
                         Text( category.name )
+                            .lineLimit(1)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .foregroundColor(self.homeVM.currentCategoryTabID == category.id ? Color.yellow : Color.black)
                             .padding(.horizontal)
                         
-                        Rectangle()
-                            .fill(self.homeVM.currentCategoryTabID == category.id ? Color.yellow : Color.black)
-                            .frame(height: 1)
                         
                     }.onTapGesture {
                         self.homeVM.currentCategoryTabID = category.id
@@ -29,6 +29,7 @@ struct CategoryList: View {
                     }
                 }
             }.padding(.horizontal)
+            .padding(.bottom, 3)
         }
     }
 }

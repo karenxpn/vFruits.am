@@ -22,4 +22,20 @@ struct ProductViewModel: Identifiable {
     var image: String {
         self.product.photo
     }
+    
+    var price: String {
+        "\(self.product.price)"
+    }
+    
+    var maxOrder: Decimal {
+        self.product.maxOrder
+    }
+    
+    var minOrder: Decimal {
+        self.product.minOrder
+    }
+    
+    var unit: String {
+        self.product.unit
+    }
 }

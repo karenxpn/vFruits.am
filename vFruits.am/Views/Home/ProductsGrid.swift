@@ -15,7 +15,6 @@ struct ProductsGrid: View {
     var body: some View {
         let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
         
-        ScrollView( .vertical ) {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach( self.homeVM.categoryProducts, id: \.id) { product in
                     NavigationLink(destination: SelectedProduct(product: product)) {
@@ -39,7 +38,6 @@ struct ProductsGrid: View {
 
                 }
             }
-        }
     }
 }
 

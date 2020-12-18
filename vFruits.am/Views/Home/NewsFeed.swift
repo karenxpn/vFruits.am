@@ -20,7 +20,8 @@ struct NewsFeed: View {
                         .aspectRatio(contentMode: .fill)
                         .frame(width: UIScreen.main.bounds.size.width * 0.6, height: UIScreen.main.bounds.size.height * 0.2)
                         .cornerRadius(15)
-                        .padding()
+                        .padding(.vertical)
+                        .padding(.horizontal, 5)
                 }
             }
         }

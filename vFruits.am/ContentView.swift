@@ -22,17 +22,17 @@ struct ContentView: View {
                         
                     }
                 
-                Text( "Cart" )
-                    .tabItem {
-                        Image(systemName: "cart")
-                        Text("Cart")
-                        
-                    }
-                
                 Text( "Favourites" )
                     .tabItem {
                         Image(systemName: "heart")
                         Text("Favourites")
+                        
+                    }
+                
+                Text( "Cart" )
+                    .tabItem {
+                        Image(systemName: "cart")
+                        Text("Cart")
                         
                     }
                 
