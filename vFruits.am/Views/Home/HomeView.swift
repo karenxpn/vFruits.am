@@ -16,9 +16,9 @@ struct HomeView: View {
     
     // Create @Published variable in view model currentCategoryTab and its child grid of products
     
-    init() {
-        UIScrollView.appearance().bounces = false
-    }
+//    init() {
+//        UIScrollView.appearance().bounces = false
+//    }
     
     var body: some View {
         

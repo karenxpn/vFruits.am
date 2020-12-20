@@ -113,13 +113,6 @@
 			path = Cart;
 			sourceTree = "<group>";
 		};
-		FFDFAF61258D182A006794A0 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
 		FFE9E96B25778738002F80C8 = {
 			isa = PBXGroup;
 			children = (
@@ -142,7 +135,6 @@
 		FFE9E97625778738002F80C8 /* vFruits.am */ = {
 			isa = PBXGroup;
 			children = (
-				FFDFAF61258D182A006794A0 /* Managers */,
 				FFE9E98E2577E4E5002F80C8 /* font */,
 				FFE9E9882577A8A2002F80C8 /* Models */,
 				FFE9E9892577A8A8002F80C8 /* ViewModels */,

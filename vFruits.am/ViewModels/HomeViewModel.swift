@@ -26,32 +26,34 @@ class HomeViewModel: ObservableObject {
     var dataManager: HomeServiceProtocol
     
     init(dataManager: HomeServiceProtocol = HomeService.shared) {
-            
         self.dataManager = dataManager
-        getCategories()
+        
+        initiallyGetNewsFeedAndCategoryList()
     }
 }
 
 extension HomeViewModel: HomeViewModelProtocol {
-    func getCategories() {
+    
+    func initiallyGetNewsFeedAndCategoryList() {
         self.loading = true
-        dataManager.fetchCategories().sink(receiveCompletion: { (completion) in
+        Publishers.Zip( dataManager.fetchCategories(), dataManager.fetchNewsFeed(token: ""))
+            .sink { (error) in
+                switch error {
+                    case .failure(let error ):
+                        print(error.localizedDescription)
+                    default:
+                        self.loading = false
+                }
+            } receiveValue: { (categoryArray, newsFeed) in
+                self.categoryList = categoryArray.map( CategoryViewModel.init )
+                self.currentCategoryTabID = self.categoryList[0].id
+                self.getProductsByCategory()
+                
+                self.newsFeed = newsFeed
 
-            switch completion {
-                case .failure(let error):
-                    self.categoryList.removeAll(keepingCapacity: false)
-                    print(error.localizedDescription)
-                default:
-                    self.loading = false
-                    
-            }
-            
-        }, receiveValue: { (categorydataModel) in
-            self.categoryList = categorydataModel.map( CategoryViewModel.init )
-            self.currentCategoryTabID = self.categoryList[0].id
-            self.getProductsByCategory()
-        }).store(in: &self.cancellable)
+            }.store(in: &self.cancellable)
     }
+    
     
     func getProductsByCategory() {
         self.loading = true
